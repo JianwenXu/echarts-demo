@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>echarts 3(两条线)</title>
+  <script type="text/javascript" src="echarts.js"></script>
+</head>
+<body>
+  <!-- 为 Echarts 准备一个具备大小（宽高）的 DOM -->
+  <div id="main" style="width: 800px; height: 400px;"></div>
+  <script type="text/javascript">
+    // 基于准备好的dom,初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var option = {
+      title: {
+        text: '折线图堆叠'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data:['直接访问','搜索引擎']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: true, // 留白策略
+        data: ['周一','周二','周三','周四','周五','周六','周日']
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name:'直接访问',
+          type:'line',
+          // stack: '11',
+          smooth:true, //这句就是让曲线变平滑的
+          data:[320, 332, 960, 1100, 800, 330, 320]
+        },
+        {
+          name:'搜索引擎',
+          type:'line',
+          // stack: '12',
+          smooth:true, //这句就是让曲线变平滑的
+          data:[820, 932, 901, 934, 1290, 1330, 1320]
+        }
+      ]
+    };
+
+    // 使用刚才指定的配置项和数据显示图表
+    myChart.setOption(option);
+  </script>
+</body>
+</html>

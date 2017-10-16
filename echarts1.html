@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>echarts 1(折线下面带面积)</title>
+  <script type="text/javascript" src="echarts.js"></script>
+</head>
+<body>
+  <!-- 为 Echarts 准备一个具备大小（宽高）的 DOM -->
+  <div id="main" style="width: 800px; height: 400px;"></div>
+  <script type="text/javascript">
+    // 基于准备好的dom,初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var option = {
+      title: { // 标题
+        text: '堆叠区域图' // 主标题文本，支持\n换行
+      },
+      tooltip : { // 提示框
+        trigger: 'axis', // 触发类型，坐标轴触发
+        axisPointer: { // 坐标轴指示器配置项
+          type: 'cross', // 指示器类型，直线，十字，阴影
+          label: { // 坐标轴指示器的文本标签
+            backgroundColor: '#0f0' // 文本标签的背景颜色
+          }
+        }
+      },
+      legend: { // 图例组件
+        data:['搜索引擎'] // 图例的数据数组
+      },
+      toolbox: { // 工具栏
+        feature: { // 各工具配置项
+          saveAsImage: {} // 保存为图片
+        }
+      },
+      grid: { // 直角坐标系内绘图表格
+        left: '3%', // grid 组件离容器左侧的距离
+        right: '4%',
+        bottom: '3%',
+        containLabel: true // grid区域是否包含坐标轴的刻度标签
+      },
+      xAxis : [ // x轴
+        {
+          type : 'category', // 坐标轴类型：类目轴、数值轴、时间轴、对数轴
+          boundaryGap : false, // 坐标轴两边的留白策略
+          data : ['周一','周二','周三','周四','周五','周六','周日'] // 类目数据
+        }
+      ],
+      yAxis : [ // y轴
+        {
+          type : 'value' // 坐标轴类型，同X轴，也是四种
+        }
+      ],
+      series : [
+        {
+          name:'搜索引擎', // 名称
+          type:'line', // 类型
+          // 数据堆叠,同个类目轴上系列配置相同的stack值后，后一个系列的值会在前一个系列的值上相加。
+          // stack: '总量',
+          smooth:true, // 是否平滑曲线显示
+          // symbol:'none', // 标记的图形
+          label: { // 图形上的文本标签
+            normal: { // normal状态
+              show: true, // 是否显示标签
+              position: 'top' // 标签的位置
+            }
+          },
+          areaStyle: {normal: {}}, // 区域填充样式
+          data:[820, 932, 1290, 1330, 1190, 899, 760] // 内容数组
+        }
+      ]
+    };
+
+    // 使用刚才指定的配置项和数据显示图表
+    myChart.setOption(option);
+  </script>
+</body>
+</html>

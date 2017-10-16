@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>echarts 2(折线加柱子)</title>
+  <script type="text/javascript" src="echarts.js"></script>
+</head>
+<body>
+  <!-- 为 Echarts 准备一个具备大小（宽高）的 DOM -->
+  <div id="main" style="width: 800px; height: 400px;"></div>
+  <script type="text/javascript">
+    // 基于准备好的dom,初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var option = {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          crossStyle: {
+            color: '#00f' // 线的颜色
+          }
+        }
+      },
+      toolbox: {
+        feature: {
+          // 数据视图工具，可以展现当前图表所用的数据，编辑后可以动态更新。
+          dataView: {show: true, readOnly: false},
+          magicType: {show: true, type: ['line', 'bar']}, // 动态类型切换
+          restore: {show: true}, // 配置项还原
+          saveAsImage: {show: true}
+        }
+      },
+      legend: {
+        data:['蒸发量','平均温度']
+      },
+      xAxis: [
+        {
+          type: 'category',
+          data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+          axisPointer: {
+            type: 'line'
+          }
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value', // 类型
+          name: '水量', // 名称
+          min: 0, // 坐标轴刻度最小值
+          max: 250, // 坐标轴刻度最大值
+          interval: 50, // 强制设置坐标轴分隔间隔
+          axisLabel: { // 坐标轴刻度标签的相关设置
+            formatter: '{value} ml' // 刻度标签的内容格式器
+          }
+        },
+        {
+          type: 'value',
+          name: '温度',
+          min: 0,
+          max: 25,
+          interval: 5,
+          axisLabel: {
+            formatter: '{value} °C'
+          }
+        }
+      ],
+      series: [
+        {
+          name:'蒸发量',
+          type:'bar',
+          data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+        },
+        {
+          name:'平均温度',
+          type:'line',
+          smooth:true, //这句就是让曲线变平滑的
+          yAxisIndex: 1, // 使用的 y 轴的 index，在单个图表实例中存在多个 y轴的时候有用。
+          data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+        }
+      ]
+    };
+
+    // 使用刚才指定的配置项和数据显示图表
+    myChart.setOption(option);
+  </script>
+</body>
+</html>
